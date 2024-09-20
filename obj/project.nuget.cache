@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "taZxBWnA2/c=",
+  "success": true,
+  "projectFilePath": "/home/lucas/Files/Dev/Repos/Polka/Polka.csproj",
+  "expectedPackageFiles": [
+    "/home/lucas/.nuget/packages/raylib-csharp/4.1.9/raylib-csharp.4.1.9.nupkg.sha512"
+  ],
+  "logs": []
+}
