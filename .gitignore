@@ -1,0 +1,16 @@
+# ides & editors
+.vscode
+.vs
+.idea
+*_ReSharper
+
+# dotnet & c#
+[Bb]in
+[Oo]bj
+[Dd]ebug
+[Rr]elease
+*.suo
+*.user
+*.sln.docstates
+packages
+.config

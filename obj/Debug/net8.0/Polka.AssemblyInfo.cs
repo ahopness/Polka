@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Polka")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b5f203cff14884f4d87182e90d06fa9885dcfb5a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d7323c3eca7ebede88e61dd4ab6d13792301bf50")]
 [assembly: System.Reflection.AssemblyProductAttribute("Polka")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Polka")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
