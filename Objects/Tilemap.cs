@@ -1,12 +1,12 @@
+using Polka.Core;
 using System.Xml;
+
+using Object = Polka.Core.Object;
 
 namespace Polka
 {
-    public class Tilemap
+    public class Tilemap : Map
     {
-        public SortedList<string, Tilelayer> layerList;
-        public SortedList<string, Object> objectList;
-
         public int width;
         public int height;
 
@@ -20,8 +20,7 @@ namespace Polka
             int _mapWidth = int.Parse(root.Attributes["width"].Value);
             int _mapHeight = int.Parse(root.Attributes["height"].Value);
 
-            layerList = new SortedList<string, Tilelayer>();
-            objectList = new SortedList<string, Object>();
+            objectList = new List<Object>();
             foreach ( XmlNode childNode in root.ChildNodes )
             {
                 if ( childNode.Name == "layer" )
@@ -49,25 +48,23 @@ namespace Polka
                     }
 
                     string name = childNode.Attributes["name"].Value;
-                    layerList.Add( name, layer );
+                    objectList.Add( layer );
                 }
                 else if ( childNode.Name == "objectgroup" )
                 {
                     foreach (XmlNode objectNode in childNode.ChildNodes)
                     {
-                        if ( objectNode.Attributes["name"].Value == "player" )
+                        if ( objectNode.Attributes["name"].Value.StartsWith("spawn") )
                         {
                             Player player = new Player();
                             player.position.X = int.Parse(objectNode.Attributes["x"].Value);
                             player.position.Y = int.Parse(objectNode.Attributes["y"].Value);
 
-                            objectList.Add("player", player);
+                            objectList.Add( player );
                         }
                     }
-                    
                 }
             }
-
         }
     }
 }

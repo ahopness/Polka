@@ -1,3 +1,4 @@
+using Polka.Core;
 using Raylib_CSharp;
 using Raylib_CSharp.Camera.Cam2D;
 using Raylib_CSharp.Colors;
@@ -13,8 +14,8 @@ namespace Polka
         public static Game Instance { get; private set; }
 
         #region App Settings
-        public static int screenWidth = 144; //256;
-        public static int screenHeight = 128;//144;
+        public static int screenWidth = 128;
+        public static int screenHeight = 144;
 
         public static string version = "0.1a";
         public static string windowTitle = "POLKA :: v" + version;
@@ -25,7 +26,7 @@ namespace Polka
         public static Vector2 gravity = new Vector2( 0, -9.8f );
         #endregion
 
-        public static Scene currentScene;
+        public static Map currentMap;
 
         public void Run() 
         {
@@ -43,21 +44,29 @@ namespace Polka
             viewport.Zoom = windowScale;
 
             // Criação da cena
-            currentScene = new Map();
+            Tileset tileset = new Tileset(
+                "Content/Maps/tileset.xml",
+                "Content/Sprites/spritesheet.png"
+                );
+            
+            currentMap = new Tilemap(
+                "Content/Maps/t1.tmx", // Mapa inicial
+                tileset
+                );
 
             // Game Loop
-            currentScene.Create();
+            currentMap.Create();
 
             while (!Window.ShouldClose())
             {
-                currentScene.Update( Time.GetFrameTime() );
+                currentMap.Update( Time.GetFrameTime() );
 
                 Graphics.BeginDrawing();
                 Graphics.ClearBackground( Color.Black );
 
                     Graphics.BeginMode2D(viewport);
 
-                    currentScene.Draw();
+                    currentMap.Draw();
 
                     Graphics.EndMode2D();
 
@@ -68,15 +77,15 @@ namespace Polka
         public void Dispose() 
         {
             // Finalização
-            currentScene.Dispose();
+            currentMap.Dispose();
             Window.Close();
         }
 
-        public void ChangeScene(Scene scene)
+        public void ChangeMap(Map scene)
         {
-            currentScene.Dispose();
-            currentScene = scene;
-            currentScene.Create();
+            currentMap.Dispose();
+            currentMap = scene;
+            currentMap.Create();
         }
     }
 }

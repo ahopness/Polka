@@ -1,9 +1,10 @@
 using System.Numerics;
+using Polka.Core;
 using Raylib_CSharp.Textures;
 
 namespace Polka
 {
-    public class Player : Sprite
+    public class Player : Actor
     {
         public int[] anmIdle = { 0 };
         public int[] anmJump = { 1 };

@@ -16,6 +16,7 @@ namespace Polka.Core
         public float rotation = 0f;
         public Color tint = Color.White;
         public bool flipped = false;
+        public bool visible = true;
         #endregion
 
         #region Animation
@@ -60,53 +61,57 @@ namespace Polka.Core
 
         public override void Draw()
         {
-            // Funciona melhor em resoluçoes baixas :p
-            position.X = MathF.Round(position.X);
-            position.Y = MathF.Round(position.Y);
-
-            Rectangle src = new Rectangle(
-                0,
-                0,
-                sprite.Width,
-                sprite.Height
-            );
-            Rectangle dest = new Rectangle(
-                position.X,
-                position.Y,
-                sprite.Width,
-                sprite.Height
-            );
-
-            if ( animated )
+            if ( visible )
             {
-                int _sliceWidth = sprite.Width / anmSlices;
+                // Funciona melhor em resoluçoes baixas :p
+                //TODO: Criar tipo Vec2i
+                position.X = MathF.Round(position.X);
+                position.Y = MathF.Round(position.Y);
 
-                src = new Rectangle(
-                    anmFrame * _sliceWidth,
+                Rectangle src = new Rectangle(
                     0,
-                    _sliceWidth,
+                    0,
+                    sprite.Width,
                     sprite.Height
                 );
-                dest = new Rectangle(
+                Rectangle dest = new Rectangle(
                     position.X,
                     position.Y,
-                    _sliceWidth,
+                    sprite.Width,
                     sprite.Height
                 );
+
+                if ( animated )
+                {
+                    int _sliceWidth = sprite.Width / anmSlices;
+
+                    src = new Rectangle(
+                        anmFrame * _sliceWidth,
+                        0,
+                        _sliceWidth,
+                        sprite.Height
+                    );
+                    dest = new Rectangle(
+                        position.X,
+                        position.Y,
+                        _sliceWidth,
+                        sprite.Height
+                    );
+                }
+
+                if ( flipped ) { src.Width = -src.Width; }
+                
+                dest.Size *= scale;
+
+                Graphics.DrawTexturePro(
+                    sprite,
+                    src,
+                    dest,
+                    origin,
+                    rotation,
+                    tint
+                );
             }
-
-            if ( flipped ) { src.Width = -src.Width; }
-            
-            dest.Size *= scale;
-
-            Graphics.DrawTexturePro(
-                sprite,
-                src,
-                dest,
-                origin,
-                rotation,
-                tint
-            );
 
             base.Draw();
         }
